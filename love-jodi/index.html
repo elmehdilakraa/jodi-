@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Love You Jodi! 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ff9a9e 100%);
+            padding: 2rem;
+            overflow: hidden;
+            font-family: Georgia, serif;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: #d63384;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .bear-container {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .bear-container:hover img {
+            transform: scale(1.1);
+        }
+        
+        .bear-container.bounce {
+            animation: bounce 0.5s ease infinite;
+        }
+        
+        .bear-container img {
+            width: 300px;
+            height: 300px;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+            transition: transform 0.3s ease;
+        }
+        
+        .heart {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            font-size: 2rem;
+            animation: floatUp 2s ease-out forwards;
+            pointer-events: none;
+        }
+        
+        .love-message {
+            margin-top: 2rem;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.5s ease;
+        }
+        
+        .love-message.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .love-message h2 {
+            font-size: 3rem;
+            color: #ff1493;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: pulse 1s ease infinite;
+        }
+        
+        .love-message p {
+            font-size: 1.5rem;
+            color: #d63384;
+            margin-top: 1rem;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes floatUp {
+            0% { 
+                opacity: 1; 
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% { 
+                opacity: 0; 
+                transform: translate(-50%, -250px) scale(0.5);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Click the Bear! 🐻</h1>
+    
+    <div class="bear-container" id="bearContainer" onclick="showLove()">
+        <img src="bear.png" alt="Cute Bear">
+    </div>
+    
+    <div class="love-message" id="loveMessage">
+        <h2>I Love You, Jodi! 💕</h2>
+        <p>You are my everything! 🥰</p>
+    </div>
+    
+    <script>
+        let heartsCreated = false;
+        
+        function showLove() {
+            const container = document.getElementById('bearContainer');
+            const message = document.getElementById('loveMessage');
+            
+            // Add bounce animation
+            container.classList.add('bounce');
+            
+            // Show love message
+            message.classList.add('show');
+            
+            // Create floating hearts
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => createHeart(container), i * 100);
+            }
+        }
+        
+        function createHeart(container) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = '❤️';
+            heart.style.left = `calc(50% + ${Math.random() * 200 - 100}px)`;
+            heart.style.top = '50%';
+            container.appendChild(heart);
+            
+            // Remove heart after animation
+            setTimeout(() => heart.remove(), 2000);
+        }
+    </script>
+</body>
+</html>
